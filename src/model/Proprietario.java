@@ -14,13 +14,13 @@ public class Proprietario {
     private String nomeProprietario;
     private String sobrenomeProprietario;
     private int idade;
-    private int cpf;
+    private String cpf;
     private String endereco;
 
     public Proprietario() {
     }
 
-    public Proprietario(int idProprietario, String nomeProprietario, String sobrenomeProprietario, int idade, int cpf, String endereco) {
+    public Proprietario(int idProprietario, String nomeProprietario, String sobrenomeProprietario, int idade, String cpf, String endereco) {
         this.idProprietario = idProprietario;
         this.nomeProprietario = nomeProprietario;
         this.sobrenomeProprietario = sobrenomeProprietario;
@@ -61,11 +61,11 @@ public class Proprietario {
         this.idade = idade;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
