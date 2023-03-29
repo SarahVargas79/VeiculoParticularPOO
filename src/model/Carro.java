@@ -14,13 +14,13 @@ public class Carro {
     private String marca;
     private String modelo; 
     private int ano;
-    private int placa;
+    private String placa;
     private Proprietario idProprietario;
 
     public Carro() {
     }
 
-    public Carro(int idCarro, String marca, String modelo, int ano, int placa, Proprietario idProprietario) {
+    public Carro(int idCarro, String marca, String modelo, int ano, String placa, Proprietario idProprietario) {
         this.idCarro = idCarro;
         this.marca = marca;
         this.modelo = modelo;
@@ -61,11 +61,11 @@ public class Carro {
         this.ano = ano;
     }
 
-    public int getPlaca() {
+    public String getPlaca() {
         return placa;
     }
 
-    public void setPlaca(int placa) {
+    public void setPlaca(String placa) {
         this.placa = placa;
     }
 
@@ -81,6 +81,6 @@ public class Carro {
     public String toString() {
         return "Carro{" + "idCarro=" + idCarro + ", marca=" + marca + ", modelo=" + modelo + ", ano=" + ano + ", placa=" + placa + ", idProprietario=" + idProprietario + '}';
     }
-    
+
     
 }
