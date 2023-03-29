@@ -36,8 +36,8 @@ public class VeiculoParticularPOO {
         }
         return num;
     }
-    
-     public static void menuP() {
+
+    public static void menuP() {
         System.out.println("\n.:Veículo Particular:.");
         System.out.println("1 - Adm.Proprietários");
         System.out.println("2 - Adm.Carros");
@@ -63,7 +63,7 @@ public class VeiculoParticularPOO {
         System.out.println("0 - Voltar");
         System.out.print("Digite uma opção: ");
     }
-    
+
     public static void cadastrarProprietario() {
         int idProprietario;
         String nomeProprietario;
@@ -107,7 +107,7 @@ public class VeiculoParticularPOO {
             }
         } while (!cpfIs);
     }//fim cadastrar proprietário
-    
+
     private static void editarProprietario() {
         System.out.println("-- Editar Proprietário --");
         System.out.print("\nDigite o CPF do proprietário: ");
@@ -142,7 +142,7 @@ public class VeiculoParticularPOO {
                 if (opEditar < 1 || opEditar > 5) {
                     System.out.println("\nOpção inexistente");
                 }
-                
+
                 System.out.println("\nProprietário:\n" + prop.toString());
             } else {
                 System.out.println("\nProprietário não cadastrado!");
@@ -151,8 +151,8 @@ public class VeiculoParticularPOO {
             System.out.println("\nCPF inválido!");
         }
     }//fim editar proprietário
-    
-     public static void imprimirListaProprietarios() {
+
+    public static void imprimirListaProprietarios() {
         System.out.println("-- Lista de Proprietários --");
         for (Proprietario prop : cadProprietario.getProprietarios()) {
             System.out.println("\n---");
@@ -180,48 +180,97 @@ public class VeiculoParticularPOO {
             System.out.println("\nCPF inválido!");
         }
     }//fim deletar proprietário
-    
+
     private static void registrarCarro() {
         System.out.println("-- Registro de Carro --");
-        System.out.print("\nDigite a placa do carro: ");
-        String placa = leia.nextLine();
-        if (cadCarro.getCarroPlaca(placa) != null) {
-            System.out.println("\nCarro já registrado!");
-        } else {
-            int idCarro = cadCarro.geraID();
-            System.out.print("\nInforme a marca: ");
-            String marca = leia.nextLine();
-            System.out.print("\nInforme o modelo: ");
-            String modelo = leia.nextLine();
-            System.out.print("\nInforme o ano: ");
-            int ano = leiaNumInt();
-            boolean isCPF = false;
-            Proprietario idProprietario = null;
-            do {
-                System.out.print("\nInforme o CPF do proprietário: ");
-                String cpf = leia.nextLine();
-                isCPF = Validadores.isCPF(cpf);
-                if (isCPF) {
-                    idProprietario = cadProprietario.getProprietarioCPF(cpf);
-                    if (idProprietario == null) {
-                        System.out.println("\nProprietário não cadastrado");
-                        isCPF = false;
-                    } else {
-                        System.out.println("\nProprietário: " + idProprietario.getNomeProprietario());
-                    }
-                } else {
-                    System.out.println("\nCPF inválido!");
+        System.out.print("\nDigite a placa: ");
+        String placa;
+        boolean placaValidar;
+        int opPlaca;
+        do {
+            placa = leia.nextLine();
+            placaValidar = Validadores.validarPlaca(placa);
+            if (!placaValidar) {
+                System.out.println("\nPlaca inválida, \nDeseja tentar novamente? 1 - Sim | 2 - Não");
+                opPlaca = leiaNumInt();
+
+                if (opPlaca == 1) {
+                    System.out.print("\nDigite a placa: ");
+
+                } else if (opPlaca == 2) {
+                    System.out.println("\nRegistro cancelado pelo usuário!");
+                    
+                    return;
                 }
-            } while (!isCPF);
-            Carro car = new Carro(idCarro, marca, modelo, ano, placa, idProprietario);
-            cadCarro.addCarro(car);
-            System.out.println("\nCarro registrado com sucesso!");
-        }
+            } else if (cadCarro.getCarroPlaca(placa) != null) {
+                System.out.println("\nCarro já registrado!");
+            }
+        } while (!placaValidar);
+        System.out.print("\nInforme a marca: ");
+        String marca = leia.nextLine();
+        System.out.print("\nInforme o modelo: ");
+        String modelo = leia.nextLine();
+        System.out.print("\nInforme o ano: ");
+        int ano = leiaNumInt();
+        boolean isCPF = false;
+        Proprietario idProprietario = null;
+        do {
+            System.out.print("\nInforme o CPF do proprietário: ");
+            String cpf = leia.nextLine();
+            isCPF = Validadores.isCPF(cpf);
+            if (isCPF) {
+                idProprietario = cadProprietario.getProprietarioCPF(cpf);
+                if (idProprietario == null) {
+                    System.out.println("\nProprietário não cadastrado");
+                    isCPF = false;
+                } else {
+                    System.out.println("\nProprietário: " + idProprietario.getNomeProprietario());
+                }
+            } else {
+                System.out.println("\nCPF inválido!");
+            }
+        } while (!isCPF);
+
+        int dCarro = cadCarro.geraID();
+        Carro car = new Carro(dCarro, marca, modelo, ano, placa, idProprietario);
+        cadCarro.addCarro(car);
+        System.out.println("\nCarro registrado com seucesso!");
+
     }//fim registro carro
-    
+
     private static void editarCarro() {
-        
-    }
+        System.out.println("-- Editar Carro --");
+        System.out.print("\nDigite a placa: ");
+        String placa = leia.nextLine();
+        Carro car = cadCarro.getCarroPlaca(placa);
+        if (car != null) {
+            System.out.println("1 - Marca: \t" + car.getMarca());
+            System.out.println("2 - Modelo:\t" + car.getModelo());
+            System.out.println("3 - Ano:    \t" + car.getAno());
+            System.out.println("4 - Todos as informações acima? ");
+            System.out.print("\nQual informação deseja alterar? \nDigite aqui sua opção: ");
+            int opEditar = leiaNumInt();
+            if (opEditar == 1 || opEditar == 4) {
+                System.out.print("\nInforme a marca: ");
+                car.setMarca(leia.nextLine());
+            }
+            if (opEditar == 2 || opEditar == 4) {
+                System.out.print("\nInforme o modelo: ");
+                car.setModelo(leia.nextLine());
+            }
+            if (opEditar == 3 || opEditar == 4) {
+                System.out.print("\nInforme o ano: ");
+                car.setAno(leiaNumInt());
+            }
+            if (opEditar < 1 || opEditar > 4) {
+                System.out.println("\nOpção inexistente");
+            }
+
+            System.out.println("\nProprietário:\n" + car.toString());
+        } else {
+            System.out.println("\nProprietário não cadastrado!");
+        }
+    }//fim editar carro
 
     private static void imprimirListaCarros() {
         System.out.println("-- Lista de Carros --");
@@ -233,26 +282,26 @@ public class VeiculoParticularPOO {
             System.out.println("Proprietário:     \t" + car.getIdProprietario().getNomeProprietario());
         }
     }//fim imprimir lista de carros
-    
+
     private static void removerCarro() {
         System.out.println("-- Remover Carro --");
         System.out.print("\nDigite a placa: ");
         String placa = leia.nextLine();
-        Carro car =  cadCarro.getCarroPlaca(placa);
+        Carro car = cadCarro.getCarroPlaca(placa);
         if (car != null) {
             System.out.println("\nConfirmar remover carro? 1 - Sim | 2 - Não");
             cadCarro.removeCarros(car);
             int opRemover = leiaNumInt();
             if (opRemover == 1) {
-                System.out.println("\nCarro: " + car.getMarca() + car.getModelo() + car.getPlaca() + " deletado!");
-            }else if (opRemover == 2) {
+                System.out.println("\nCarro: " + car.getMarca() + "" + car.getModelo() + "" + car.getPlaca() + " deletado!");
+            } else if (opRemover == 2) {
                 System.out.println("Usuário cancelou remoção de carro!");
             }
         } else {
             System.out.println("\nPlaca não encontrada!");
         }
     }//fim removerCarro
-    
+
     public static void main(String[] args) {
         //CProprietario cprop = new CProprietario();
         //Chamando mock. 
@@ -281,7 +330,7 @@ public class VeiculoParticularPOO {
                                     cadastrarProprietario();
                                 } else if (opM == 2) {
                                     registrarCarro();
-                                } 
+                                }
                                 break;
                             case 2:
                                 System.out.println("\n-- Edição --\n");
@@ -326,5 +375,5 @@ public class VeiculoParticularPOO {
             }
         } while (opM != 0);//fim sistema
     }
-    
+
 }
