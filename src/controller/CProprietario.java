@@ -94,7 +94,5 @@ public class CProprietario {
 
         return p;
     }
-    
+
 }
-
-

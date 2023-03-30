@@ -41,7 +41,7 @@ public class CCarro {
         car1.setMarca("Lamborghini");
         car1.setModelo("Urus");
         car1.setAno(2022);
-        car1.setPlaca("MZY1300");
+        car1.setPlaca("JNL5P36");
         car1.setIdProprietario(VeiculoParticularPOO.cadProprietario.getProprietarioCPF("80188950079"));//espera um objeto editora - chamar construtor
         this.addCarro(car1);
         
@@ -50,7 +50,7 @@ public class CCarro {
         car2.setMarca("CAOA Chery");
         car2.setModelo("Tiggo 8");
         car2.setAno(2023);
-        car2.setPlaca("HUH8005");
+        car2.setPlaca("XQJ1P23");
         car2.setIdProprietario(VeiculoParticularPOO.cadProprietario.getProprietarioCPF("79786685091"));//espera um objeto editora - chamar construtor
         this.addCarro(car2);
     }
