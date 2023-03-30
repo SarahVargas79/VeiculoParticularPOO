@@ -81,18 +81,16 @@ public class Validadores {
     }//fim imprimeCPF
 
     public static boolean validarPlaca(String placa) {
-        boolean placaValida = true;
-
-        if (placa.length() > 0) {
-            if (placa.length() < 7) {
-                placaValida = false;
-            } else {
-                if (!placa.matches("[A-Z]{3}[0-9][A-Z][0-9]{2}")) {
-                    placaValida = false;
-                }
-            }
+        boolean valido = true;
+        if (placa.length() != 7) {
+            valido = false;
         }
-
-        return placaValida;
+        if (!placa.substring(0, 3).matches("[A-Z]*")) {
+            valido = false;
+        }
+        if (!placa.substring(3).matches("[0-9]*")) {
+            valido = false;
+        }
+        return valido;
     }//fim validar placa
 }
